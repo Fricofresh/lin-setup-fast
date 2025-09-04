@@ -12,6 +12,9 @@ kwriteconfig6 --file ~/.config/kdeglobals --group General --key name "Breeze Dar
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key ColorScheme "Breeze"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key SingleClick "false"
+## Taskbar
+kwriteconfig6 --file ~/.config/plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.rncbc.qpwgraph.desktop,applications:systemsettings.desktop,preferred://filemanager,applications:thunderbird.desktop,applications:terminator.desktop,preferred://browser,applications:youtube-music.desktop"
+
 ## KFileDialog Settings
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Allow Expansion" "false"
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Automatically select filename extension" "true"
