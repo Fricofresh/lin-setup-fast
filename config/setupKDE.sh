@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
-BASEDIR=$(dirname "$0")
+BASEDIR=$(realpath $(dirname "$0")"/..")
 
 # Terminal
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalService "terminator.desktop"
