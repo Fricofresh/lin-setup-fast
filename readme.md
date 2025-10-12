@@ -3,7 +3,7 @@
 - [x] copy TNS Logo see ./config/setupKDE.sh <br/>
 ~~Keybindings~~
 - [x] krunnerrc
-- [ ] kwinrc -> org.kde.kdecoration2
+- [x] kwinrc -> org.kde.kdecoration2
 - [ ] Taskbar Items
 - [ ] System Tray Items and order
 - [ ] plasma-org.kde.plasma.desktop.applet -> Containments -> 7
