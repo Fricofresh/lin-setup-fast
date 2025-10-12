@@ -7,13 +7,10 @@ kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalService 
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalApplication "terminator"
 
 # Theme
-kwriteconfig6 --file ~/.config/plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 3 --group Configuration --group General --key icon "$BASEDIR/picture/TNSLogo.png"
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key name "Breeze Dark"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key ColorScheme "Breeze"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key SingleClick "false"
-## Taskbar
-kwriteconfig6 --file ~/.config/plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.rncbc.qpwgraph.desktop,applications:systemsettings.desktop,preferred://filemanager,applications:thunderbird.desktop,applications:terminator.desktop,preferred://browser,applications:youtube-music.desktop"
 
 ## KFileDialog Settings
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Allow Expansion" "false"

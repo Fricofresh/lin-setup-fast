@@ -4,7 +4,7 @@
 ~~Keybindings~~
 - [x] krunnerrc
 - [x] kwinrc -> org.kde.kdecoration2
-- [ ] Taskbar Items
+- [x] Taskbar Items
 - [ ] System Tray Items and order
 - [ ] plasma-org.kde.plasma.desktop.applet -> Containments -> 7
 - [ ] Check changes in dotfiles
