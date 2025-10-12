@@ -8,12 +8,29 @@
 - [ ] System Tray Items and order
 - [ ] plasma-org.kde.plasma.desktop.applet -> Containments -> 7
 - [ ] Check changes in dotfiles
+- [ ] Change Locale
+  - [ ] All German representation only language is Englisch
 - [ ] Install Discover plugins and Themes
+  - [ ] Posy's Cursor
+  - [ ] Willow Dark
+- [x] SDDM change time-date locale
 - [ ] Import Keybinding automatically
-- [ ] VS Code Keybindings
-- [ ] Thunderbirid settings
-  - [ ] Locale
-  - [ ] Custom Time and Date
-  - [ ] Weekday
+- [ ] Install Programms
+  - [ ] VS Code Keybindings
+  - [ ] Thunderbirid settings
+    - [ ] Locale
+      - [ ] ~/.config/plasma-localerc
+      - [ ] /etc/default/locale
+    - [ ] Custom Time and Date
+    - [ ] Weekday
+  - [ ] Rsync for Google Drive
+    - [ ] add to default file explorer @remote
+  - [ ] Nextcloud
+    - [ ] add to default file explorer @remote
+  - [ ] Youtube Music
+    - [ ] + Settings
 - [ ] Split settings to seperate files for singular runs
-- [ ] UI
+- [ ] UI for configurations eg. [linutil](https://github.com/ChrisTitusTech/linutil)
+  - [ ] Add
+- [ ] Optional adding Steam
+  - [ ] check for possible fixes with wrong partitions
