@@ -5,7 +5,7 @@
 - [x] krunnerrc
 - [x] kwinrc -> org.kde.kdecoration2
 - [x] Taskbar Items
-- [ ] System Tray Items and order
+- [x] System Tray Items and order
 - [ ] plasma-org.kde.plasma.desktop.applet -> Containments -> 7
 - [ ] Check changes in dotfiles
 - [ ] Change Locale
@@ -14,6 +14,7 @@
   - [ ] Posy's Cursor
   - [ ] Willow Dark
 - [x] SDDM change time-date locale
+- [x] change Plasma to dark mode
 - [ ] Import Keybinding automatically
 - [ ] Install Programms
   - [ ] VS Code Keybindings

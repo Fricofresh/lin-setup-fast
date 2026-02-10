@@ -12,6 +12,9 @@ kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key ColorScheme "Breeze"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
 kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key SingleClick "false"
 
+plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
+plasma-apply-colorscheme BreezeDark
+
 ## KFileDialog Settings
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Allow Expansion" "false"
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Automatically select filename extension" "true"
@@ -34,4 +37,6 @@ kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Vi
 
 # Mouse
 kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key X11LibInputXAccelProfileFlat "true"
-kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key cursorTheme "Posy_Corsor_Stokeless"
+kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key cursorTheme "Posy_Cursor_Strokeless"
+
+plasma-apply-cursortheme Posy_Cursor_Strokeless
