@@ -1,3 +1,4 @@
+#!/usr/bin/sh
 # Setup language
 
 kwriteconfig6 --file ~/.config/plasma-localerc --group Formats --key LANG "en_US.UTF-8"
