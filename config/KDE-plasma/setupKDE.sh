@@ -37,6 +37,6 @@ kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Vi
 
 # Mouse
 kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key X11LibInputXAccelProfileFlat "true"
-kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key cursorTheme "Posy_Cursor_Strokeless"
+kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key cursorTheme "Posy_Cursor"
 
-plasma-apply-cursortheme Posy_Cursor_Strokeless
+plasma-apply-cursortheme Posy_Cursor
