@@ -15,7 +15,7 @@
   - [ ] Willow Dark
 - [x] SDDM change time-date locale
 - [x] change Plasma to dark mode
-- [ ] Setup Camera
+- [x] Setup camera
 - [ ] Import Keybinding automatically
 - [ ] Install Programms
   - [ ] VS Code Keybindings
