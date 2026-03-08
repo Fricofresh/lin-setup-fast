@@ -8,27 +8,25 @@
 - [x] System Tray Items and order
 - [ ] plasma-org.kde.plasma.desktop.applet -> Containments -> 7
 - [ ] Check changes in dotfiles
-- [ ] Change Locale
-  - [ ] All German representation only language is Englisch
+- [x] Change Locale
+  - [x] All German representation only language is English
 - [ ] Install Discover plugins and Themes
   - [ ] Posy's Cursor
   - [ ] Willow Dark
 - [x] SDDM change time-date locale
 - [x] change Plasma to dark mode
+- [ ] Setup Camera
 - [ ] Import Keybinding automatically
 - [ ] Install Programms
   - [ ] VS Code Keybindings
   - [ ] Thunderbirid settings
-    - [ ] Locale
-      - [ ] ~/.config/plasma-localerc
-      - [ ] /etc/default/locale
     - [ ] Custom Time and Date
     - [ ] Weekday
-  - [ ] Rsync for Google Drive
+  - [ ] rclone for Google Drive
     - [ ] add to default file explorer @remote
   - [ ] Nextcloud
     - [ ] add to default file explorer @remote
-  - [ ] Youtube Music
+  - [ ] [YouTube Music](https://github.com/pear-devs/pear-desktop)
     - [ ] + Settings
 - [ ] Split settings to seperate files for singular runs
 - [ ] UI for configurations eg. [linutil](https://github.com/ChrisTitusTech/linutil)
