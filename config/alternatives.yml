@@ -1,0 +1,20 @@
+# Configuration file for update-alternatives (YAML format)
+# Each alternative requires: command, path, and priority
+
+alternatives:
+  - command: editor
+    path: /usr/bin/vim.basic
+    priority: 50
+  - command: explorer
+    path: /usr/bin/dolphin
+    priority: 10
+
+# Add your alternatives below:
+# Example:
+# - command: editor
+#   path: /usr/bin/nano
+#   priority: 10
+# - command: python
+#   path: /usr/bin/python3
+#   priority: 30
+#
