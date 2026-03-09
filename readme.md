@@ -33,3 +33,5 @@
   - [ ] Add
 - [ ] Optional adding Steam
   - [ ] check for possible fixes with wrong partitions
+- [ ] Search if [Howdy](https://github.com/boltgolt/howdy) is something that could be implemented
+
