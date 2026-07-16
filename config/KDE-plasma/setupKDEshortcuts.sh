@@ -21,3 +21,4 @@ kwriteconfig6 --file ~/.config/kglobalshortcutsrc --group kwin --key "Window to 
 kwriteconfig6 --file ~/.config/kglobalshortcutsrc --group kwin --key "Window to Desktop 3" "Meta+§,,Window to Desktop 3" 
 kwriteconfig6 --file ~/.config/kglobalshortcutsrc --group kwin --key "Window to Desktop 4" "Meta+$,,Window to Desktop 4" 
 kwriteconfig6 --file ~/.config/kglobalshortcutsrc --group kwin --key "Window to Desktop 5" "Meta+%,,Window to Desktop 5" 
+kwriteconfig6 --file ~/.config/kglobalshortcutsrc --group kwin --key "Window Above Other Windows" "Meta+Ctrl+T,,Keep Window Above Others" 
