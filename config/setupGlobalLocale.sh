@@ -1,7 +1,14 @@
-grep -q "LC_TIME=de_DE.UTF-8" /etc/locale.conf
-if [ $? -ne 0 ]; then
-  echo LC_TIME=de_DE.UTF-8 >> /etc/locale.conf
-fi
-if [ "$?" -eq 1 ]; then
-  sed -i 's/LC_TIME=.*/LC_TIME=de_DE.UTF-8/' /etc/locale.conf
-fi
+
+localectl set-locale LANG="en_US.UTF-8"
+localectl set-locale LANGUAGE="en_US:en"
+localectl set-locale LC_COLLATE="de_DE.UTF-8"
+localectl set-locale LC_NUMERIC="de_DE.UTF-8"
+localectl set-locale LC_TIME="de_DE.UTF-8"
+localectl set-locale LC_MESSAGES="de_DE.UTF-8"
+localectl set-locale LC_MONETARY="de_DE.UTF-8"
+localectl set-locale LC_ADDRESS="de_DE.UTF-8"
+localectl set-locale LC_IDENTIFICATION="de_DE.UTF-8"
+localectl set-locale LC_MEASUREMENT="de_DE.UTF-8"
+localectl set-locale LC_PAPER="de_DE.UTF-8"
+localectl set-locale LC_TELEPHONE="de_DE.UTF-8"
+localectl set-locale LC_NAME="de_DE.UTF-8"
