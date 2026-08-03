@@ -8,32 +8,8 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_FILE="$SCRIPT_DIR/alternatives.yml"
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
-
-# Function to print colored output
-print_status() {
-    local status_code=$1
-    local message=$2
-    
-    case $status_code in
-        success)
-            echo -e "${GREEN}✓${NC} $message"
-            ;;
-        skip)
-            echo -e "${YELLOW}⊘${NC} $message"
-            ;;
-        error)
-            echo -e "${RED}✗${NC} $message"
-            ;;
-        info)
-            echo -e "${YELLOW}ℹ${NC} $message"
-            ;;
-    esac
-}
+# Source shared functions
+source "$SCRIPT_DIR/shared_functions.sh"
 
 # Check if config file exists
 if [[ ! -f "$CONFIG_FILE" ]]; then

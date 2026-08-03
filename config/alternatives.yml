@@ -8,6 +8,12 @@ alternatives:
   - command: explorer
     path: /usr/bin/dolphin
     priority: 10
+  - command: rechner
+    path: /usr/bin/kcalc
+    priority: 50
+  - command: calc
+    path: /usr/bin/kcalc
+    priority: 50
 
 # Add your alternatives below:
 # Example:
