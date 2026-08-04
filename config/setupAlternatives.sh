@@ -51,12 +51,12 @@ skipped=0
 failed=0
 iteration=0
 
-# Parse YAML and convert to pipe-separated format for processing
-# Format: command_name|program_path|priority
+# Parse YAML and convert to tab-separated format for processing
+# Format: command_name<TAB>program_path<TAB>priority
 print_status info "Parsing YAML file: $CONFIG_FILE"
-yaml_data=$(yq '.alternatives[] | .command + "|" + .path + "|" + (.priority | tostring)' "$CONFIG_FILE") || {
+yaml_data=$(yq -r '.alternatives[] | [.command, .path, (.priority | tostring)] | @tsv' "$CONFIG_FILE") || {
     print_status error "Failed to parse YAML file: $CONFIG_FILE"
-    print_status error "yq output: $(yq '.alternatives[] | .command + "|" + .path + "|" + (.priority | tostring)' "$CONFIG_FILE" 2>&1)"
+    print_status error "yq output: $(yq -r '.alternatives[] | [.command, .path, (.priority | tostring)] | @tsv' "$CONFIG_FILE" 2>&1)"
     exit 1
 }
 
@@ -80,10 +80,10 @@ for alt_line in "${alternatives_array[@]}"; do
     
     ((total_lines++))
     
-    # Split the line by |
-    IFS='|' read -r command_name program_path priority <<< "$alt_line"
+    # Split the line by tab
+    IFS=$'\t' read -r command_name program_path priority <<< "$alt_line"
     
-    # Trim whitespace using sed instead of xargs to avoid quote issues
+    # Trim whitespace
     command_name=$(echo "$command_name" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
     program_path=$(echo "$program_path" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
     priority=$(echo "$priority" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
