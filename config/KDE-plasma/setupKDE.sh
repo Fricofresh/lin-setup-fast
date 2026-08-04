@@ -1,19 +1,8 @@
 #!/usr/bin/sh
 
-BASEDIR=$(realpath $(dirname "$0")"/..")
-
 # Terminal
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalService "terminator.desktop"
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalApplication "terminator"
-
-# Theme
-kwriteconfig6 --file ~/.config/kdeglobals --group General --key name "Breeze Dark"
-kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key ColorScheme "Breeze"
-kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
-kwriteconfig6 --file ~/.config/kdeglobals --group KDE --key SingleClick "false"
-
-plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
-plasma-apply-colorscheme BreezeDark
 
 ## KFileDialog Settings
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Allow Expansion" "false"
@@ -34,9 +23,3 @@ kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "So
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Sort reversed" "false"
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "Speedbar Width" "138"
 kwriteconfig6 --file ~/.config/kdeglobals --group KFileDialog Settings --key "View Style" "DetailTree"
-
-# Mouse
-kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key X11LibInputXAccelProfileFlat "true"
-kwriteconfig6 --file ~/.config/kcminputrc --group Mouse --key cursorTheme "Posy_Cursor"
-
-plasma-apply-cursortheme Posy_Cursor

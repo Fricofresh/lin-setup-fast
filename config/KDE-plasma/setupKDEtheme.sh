@@ -43,6 +43,7 @@ kwriteconfig6 --file "$HOME/.config/kdeglobals" --group KDE --key LookAndFeelPac
 kwriteconfig6 --file "$HOME/.config/kdeglobals" --group KDE --key SingleClick "false"
 
 plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
+plasma-apply-colorscheme BreezeDark
 
 # Mouse
 kwriteconfig6 --file "$HOME/.config/kcminputrc" --group Mouse --key X11LibInputXAccelProfileFlat "true"
