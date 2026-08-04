@@ -27,19 +27,20 @@ else
     echo "Camera is not connected"
 fi
 
-IS_KAMOSO_INSTALLED=${command -v kamoso &> /dev/null}
-# Install Kamoso if it's not already installed to use the camera if it's not installed
-if ! $IS_KAMOSO_INSTALLED; then
+kamoso_path=$(command -v kamoso || true)
+
+if [[ -z "$kamoso_path" ]]; then
     echo "Kamoso is not installed. Installing Kamoso..."
-    sudo ${PACKAGE_MANAGER} install kamoso
-else
-    echo "Kamoso is already installed."
+    sudo ${PACKAGE_MANAGER} install -y kamoso
+    kamoso_path=$(command -v kamoso || true)
 fi
 
-# add update-alternative for kamoso if it's not already set to Camera and Kamera
-if $IS_KAMOSO_INSTALLED; then
+if [[ -n "$kamoso_path" ]]; then
+    echo "Kamoso is installed at: $kamoso_path"
     echo "Kamoso is installed, setting up update-alternatives for Camera and Kamera..."
-    # Add update-alternatives for Kamoso, setting the default to Camera and Kamera
-    sudo update-alternatives --install /usr/bin/camera camera /usr/bin/kamoso 60 --slave /usr/bin/kamera kamera /usr/bin/kamoso
+    sudo update-alternatives --install /usr/bin/camera camera "$kamoso_path" 60 --slave /usr/bin/kamera kamera "$kamoso_path"
+else
+    echo "Failed to install or locate kamoso. Skipping update-alternatives setup."
+    exit 1
 fi
 
