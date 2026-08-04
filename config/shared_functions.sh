@@ -51,7 +51,12 @@ detect_package_manager() {
 install_packages() {
     local pm
     pm="$(detect_package_manager)"
-    local packages=(thunderbird rclone nextcloud-desktop plasma-discover)
+    local packages=("$@")
+
+    if [[ ${#packages[@]} -eq 0 ]]; then
+        packages=(thunderbird rclone nextcloud-desktop plasma-discover)
+    fi
+
     case "$pm" in
         nala)
             sudo nala update
@@ -62,7 +67,7 @@ install_packages() {
             sudo apt install -y "${packages[@]}"
             ;;
         pacman)
-            sudo pacman -Syu --needed "${packages[@]}"
+            sudo pacman -Sy --needed "${packages[@]}"
             ;;
         dnf)
             sudo dnf install -y "${packages[@]}"
