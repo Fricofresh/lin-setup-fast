@@ -81,6 +81,14 @@ install_packages() {
     esac
 }
 
+# Function to require a command is installed
+require_command() {
+    if ! command -v "$1" >/dev/null 2>&1; then
+        echo "Error: required command '$1' is not installed." >&2
+        exit 1
+    fi
+}
+
 # Function to check if we're on KDE Plasma desktop
 is_kde_plasma() {
     [[ "$DESKTOP_SESSION" == *"plasma"* ]] || [[ "$XDG_CURRENT_DESKTOP" == *"KDE"* ]]
