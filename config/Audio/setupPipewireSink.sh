@@ -3,20 +3,21 @@
  
 set -euo pipefail
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+# Source shared functions
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/../shared_functions.sh"
+
+# Check for required commands
+require_command systemctl
+
+echo -e "${YELLOW}Setting up PipeWire null audio sink...${NC}"
 
 CONFIG_DIR="/etc/pipewire/pipewire.conf.d"
 CONFIG_FILE="${CONFIG_DIR}/10-pw-sink.conf"
 
-echo -e "${YELLOW}Setting up PipeWire null audio sink...${NC}"
-
 # Create config directory if it doesn't exist
 if [[ ! -d "$CONFIG_DIR" ]]; then
-    echo -e "${YELLOW}Creating config directory: ${CONFIG_DIR}${NC}"
+    print_status info "Creating config directory: ${CONFIG_DIR}"
     sudo mkdir -p "$CONFIG_DIR"
 fi
 
@@ -37,20 +38,31 @@ context.objects = [
             monitor.passthrough = true
         }
     }
+
+    { factory = adapter
+        args = {
+            factory.name     = support.null-audio-sink
+            node.name        = "Microphone-Sink"
+            node.description = "Microphone"
+            media.class      = "Audio/Source/Virtual"
+            audio.position   = "FL,FR"
+            monitor.passthrough = true
+        }
+    }
 ]
 EOF
 
 if [[ $? -eq 0 ]]; then
-    echo -e "${GREEN}✓ Configuration written to ${CONFIG_FILE}${NC}"
+    print_status success "Configuration written to ${CONFIG_FILE}"
 else
-    echo -e "${RED}✗ Failed to write configuration file${NC}"
+    print_status error "Failed to write configuration file"
     exit 1
 fi
 
 # Restart PipeWire services to apply changes (user services, no sudo needed)
-echo -e "${YELLOW}Restarting PipeWire services...${NC}"
+print_status info "Restarting PipeWire services..."
 systemctl --user restart pipewire pipewire-pulsewire 2>/dev/null || \
 systemctl --user restart pipewire pipewire-pulse 2>/dev/null || \
-echo -e "${YELLOW}⚠ Could not restart PipeWire automatically. Please restart manually or reboot.${NC}"
+print_status error "Could not restart PipeWire automatically. Please restart manually or reboot."
 
-echo -e "${GREEN}✓ PipeWire setup complete!${NC}"
+print_status success "PipeWire setup complete!"
