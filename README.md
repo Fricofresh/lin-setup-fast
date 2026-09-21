@@ -10,9 +10,9 @@
 - [ ] Check changes in dotfiles
 - [x] Change Locale
   - [x] All German representation only language is English
-- [ ] Install Discover plugins and Themes
-  - [ ] Posy's Cursor
-  - [ ] Willow Dark
+- [ ] Install Discover plugins and Themes - Maybe with https://git.symlinx.net/pkgit
+  - [ ] [Posy's Cursor](https://github.com/simtrami/posy-improved-cursor-linux)
+  - [ ] [Willow Dark](https://github.com/doncsugar/willow-theme/tree/main/aurorae-themes/WillowDark)
 - [x] SDDM change time-date locale
 - [x] change Plasma to dark mode
 - [x] Setup camera
@@ -35,3 +35,14 @@
   - [ ] check for possible fixes with wrong partitions
 - [ ] Search if [Howdy](https://github.com/boltgolt/howdy) is something that could be implemented
 
+
+---
+
+## Usage
+
+Make the helper executable and run the task you want:
+
+```bash
+chmod +x setup.sh config/setupPrograms.sh config/*.sh config/KDE-plasma/*.sh
+./setup.sh help
+```
