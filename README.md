@@ -55,7 +55,7 @@ config/
   Audio/                     PipeWire tasks
   KDE-plasma/                KDE Plasma tasks
   VisualStudioCode/          VS Code keybindings (not installed automatically)
-picture/                     images copied into the KDE configuration
+picture/                     images installed into the user's icon directory
 installation/                placeholder
 ```
 
@@ -64,7 +64,7 @@ task.
 
 ## TODO
 
-- [x] copy TNS Logo see ./config/setupKDE.sh <br/>
+- [x] copy TNS Logo see ./config/KDE-plasma/setupKDEdesktop-appletsrc.sh <br/>
 ~~Keybindings~~
 - [x] krunnerrc
 - [x] kwinrc -> org.kde.kdecoration2
