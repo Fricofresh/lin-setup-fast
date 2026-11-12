@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 
 ScriptPath="$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")"
 

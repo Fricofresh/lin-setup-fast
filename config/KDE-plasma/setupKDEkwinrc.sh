@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 
 kwriteconfig6 --file ~/.config/kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft "M"
 kwriteconfig6 --file ~/.config/kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight "IAX"

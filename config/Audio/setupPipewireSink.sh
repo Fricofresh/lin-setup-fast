@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Written partially with AI
  
 set -euo pipefail

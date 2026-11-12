@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 
 # Terminal
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalService "terminator.desktop"
