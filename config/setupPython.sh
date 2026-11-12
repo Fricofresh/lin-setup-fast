@@ -13,16 +13,10 @@ echo "Using package manager: $PACKAGE_MANAGER"
 PYTHON_PACKAGES=(python3 python3-pip pipx)
 if ! command -v python3 &> /dev/null; then
     echo "Installing Python packages: ${PYTHON_PACKAGES[*]}"
-    sudo "$PACKAGE_MANAGER" install -y "${PYTHON_PACKAGES[@]}"
+    sudo "$PACKAGE_MANAGER" install "${PYTHON_PACKAGES[@]}"
 else
     echo "Python packages are already installed."
 fi
-
-if ! command -v pipx &> /dev/null; then
-    echo "pipx is not installed. Installing pipx..."
-    sudo "$PACKAGE_MANAGER" install -y pipx
-fi
-pipx ensurepath
 
 python3_path="$(command -v python3)"
 if [[ -z "$python3_path" ]]; then

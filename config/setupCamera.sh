@@ -20,7 +20,7 @@ else
 fi
 
 # Check if the camera is connected and get its name
-if compgen -G '/dev/video*' > /dev/null; then
+if ls /dev/video* | grep -q video0; then
     camera_name="$(v4l2-ctl --list-devices 2>/dev/null | sed '/^$/d' | head -n1 || true)"
     echo "Camera is connected: $camera_name"
 else
