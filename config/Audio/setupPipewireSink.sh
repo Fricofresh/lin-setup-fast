@@ -60,7 +60,7 @@ print_status success "Configuration written to ${CONFIG_FILE}"
 
 # Restart PipeWire services to apply changes (user services, no sudo needed)
 print_status info "Restarting PipeWire services..."
-if ! systemctl --user restart pipewire pipewire-pulse wireplumber; then
+if ! systemctl --user restart pipewire pipewire-pulse; then
     print_status warning "Could not restart PipeWire automatically. Please restart manually or reboot."
 fi
 
