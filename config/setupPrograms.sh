@@ -22,12 +22,28 @@ is_url() {
     [[ "$value" =~ ^https?:// ]]
 }
 
+# Temporary download. Kept global so the EXIT trap can still see it after
+# main() has returned and its locals are gone.
+temp_file=""
+cleanup_temp_file() {
+    if [[ -n "$temp_file" && -f "$temp_file" ]]; then
+        rm -f "$temp_file"
+    fi
+}
+trap cleanup_temp_file EXIT
+
 download_package_list() {
     local url="$1"
     local dest="$2"
 
+    if [[ "$url" != https://* ]]; then
+        print_status error "Refusing to download over an insecure scheme: $url"
+        print_status error "Use an https:// URL."
+        return 1
+    fi
+
     if command -v curl >/dev/null 2>&1; then
-        curl -fsSL "$url" -o "$dest"
+        curl -fsSL --proto '=https' --tlsv1.2 --max-redirs 3 "$url" -o "$dest"
     elif command -v wget >/dev/null 2>&1; then
         wget -qO "$dest" "$url"
     else
@@ -65,22 +81,19 @@ main() {
     fi
 
     local source_path="$1"
-    local input_file
 
     if is_url "$source_path"; then
-        input_file="$(mktemp)"
-        trap 'rm -f "$input_file"' EXIT
+        temp_file="$(mktemp)"
         print_status info "Downloading package list from URL: $source_path"
-        download_package_list "$source_path" "$input_file"
+        download_package_list "$source_path" "$temp_file"
+        parse_packages "$temp_file"
     else
         if [[ ! -f "$source_path" ]]; then
             print_status error "File not found: $source_path"
             exit 1
         fi
-        input_file="$source_path"
+        parse_packages "$source_path"
     fi
-
-    parse_packages "$input_file"
 
     if [[ ${#packages[@]} -eq 0 ]]; then
         print_status error "No valid packages found in input."
