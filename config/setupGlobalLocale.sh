@@ -1,14 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
 
-localectl set-locale LANG="en_US.UTF-8"
-localectl set-locale LANGUAGE="en_US:en"
-localectl set-locale LC_COLLATE="de_DE.UTF-8"
-localectl set-locale LC_NUMERIC="de_DE.UTF-8"
-localectl set-locale LC_TIME="de_DE.UTF-8"
-localectl set-locale LC_MESSAGES="de_DE.UTF-8"
-localectl set-locale LC_MONETARY="de_DE.UTF-8"
-localectl set-locale LC_ADDRESS="de_DE.UTF-8"
-localectl set-locale LC_IDENTIFICATION="de_DE.UTF-8"
-localectl set-locale LC_MEASUREMENT="de_DE.UTF-8"
-localectl set-locale LC_PAPER="de_DE.UTF-8"
-localectl set-locale LC_TELEPHONE="de_DE.UTF-8"
-localectl set-locale LC_NAME="de_DE.UTF-8"
+# Language is English, while regional representation (numbers, dates, currency,
+# measurement) is German. Keep LC_MESSAGES English so the UI stays English too.
+LANG_VALUE="en_US.UTF-8"
+REGION_VALUE="de_DE.UTF-8"
+
+if [[ ${EUID:-$(id -u)} -ne 0 ]]; then
+    sudo_cmd=(sudo)
+else
+    sudo_cmd=()
+fi
+
+"${sudo_cmd[@]}" localectl set-locale \
+    LANG="$LANG_VALUE" \
+    LANGUAGE="en_US:en" \
+    LC_MESSAGES="$LANG_VALUE" \
+    LC_COLLATE="$REGION_VALUE" \
+    LC_NUMERIC="$REGION_VALUE" \
+    LC_TIME="$REGION_VALUE" \
+    LC_MONETARY="$REGION_VALUE" \
+    LC_ADDRESS="$REGION_VALUE" \
+    LC_IDENTIFICATION="$REGION_VALUE" \
+    LC_MEASUREMENT="$REGION_VALUE" \
+    LC_PAPER="$REGION_VALUE" \
+    LC_TELEPHONE="$REGION_VALUE" \
+    LC_NAME="$REGION_VALUE"
