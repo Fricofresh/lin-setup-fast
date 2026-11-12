@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Created with AI
 
@@ -21,7 +22,7 @@ fi
 if ! command -v yq &> /dev/null; then
     print_status error "yq is not installed"
     echo ""
-    
+
     # Check if nala is available
     if command -v nala &> /dev/null; then
         echo "Available package managers: nala, apt"
@@ -30,9 +31,9 @@ if ! command -v yq &> /dev/null; then
         echo "Available package manager: apt"
         package_manager="apt"
     fi
-     
+
     print_status info "Installing yq using $package_manager..."
-    
+
     if sudo "$package_manager" install -y yq &> /dev/null; then
         print_status success "yq installed successfully"
     else
@@ -54,11 +55,11 @@ iteration=0
 # Parse YAML and convert to tab-separated format for processing
 # Format: command_name<TAB>program_path<TAB>priority
 print_status info "Parsing YAML file: $CONFIG_FILE"
-yaml_data=$(yq -r '.alternatives[] | [.command, .path, (.priority | tostring)] | @tsv' "$CONFIG_FILE") || {
+if ! yaml_data="$(yq -r '.alternatives[] | [.command, .path, (.priority | tostring)] | @tsv' "$CONFIG_FILE" 2>&1)"; then
     print_status error "Failed to parse YAML file: $CONFIG_FILE"
-    print_status error "yq output: $(yq -r '.alternatives[] | [.command, .path, (.priority | tostring)] | @tsv' "$CONFIG_FILE" 2>&1)"
+    print_status error "$yaml_data"
     exit 1
-}
+fi
 
 if [[ -z "$yaml_data" ]]; then
     print_status error "No alternatives found in config file: $CONFIG_FILE"
@@ -70,54 +71,75 @@ echo "$yaml_data"
 echo ""
 
 # Read parsed data line by line using array approach
-IFS=$'\n' read -r -d '' -a alternatives_array <<< "$yaml_data"
+IFS=$'\n' read -r -d '' -a alternatives_array <<< "$yaml_data" || true
 
 for alt_line in "${alternatives_array[@]}"; do
-    ((iteration++))
+    ((++iteration))
     echo "iteration $iteration"
     # Skip empty lines
-    [[ -z "$alt_line" ]] && continue
-    
-    ((total_lines++))
-    
+    if [[ -z "$alt_line" ]]; then
+        continue
+    fi
+
+    ((++total_lines))
+
     # Split the line by tab
     IFS=$'\t' read -r command_name program_path priority <<< "$alt_line"
-    
+
     # Trim whitespace
     command_name=$(echo "$command_name" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
     program_path=$(echo "$program_path" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
     priority=$(echo "$priority" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-    
+
     # Validate parsed values
     if [[ -z "$command_name" || -z "$program_path" || -z "$priority" ]]; then
         print_status error "Invalid config entry (skipping): $command_name|$program_path|$priority"
-        ((skipped++))
+        ((++skipped))
         continue
     fi
-    
+
+    # The command name ends up in a path and as an argument to a privileged
+    # command, so only accept plain command names.
+    if [[ ! "$command_name" =~ ^[A-Za-z0-9][A-Za-z0-9._+-]*$ ]]; then
+        print_status error "Invalid command name (skipping): $command_name"
+        ((++skipped))
+        continue
+    fi
+
+    if [[ ! "$program_path" = /* ]]; then
+        print_status error "Program path must be absolute (skipping): $program_path"
+        ((++skipped))
+        continue
+    fi
+
+    if [[ ! "$priority" =~ ^[0-9]+$ ]]; then
+        print_status error "Priority must be a number (skipping): $priority"
+        ((++skipped))
+        continue
+    fi
+
     # Check if the program exists
     if [[ ! -f "$program_path" ]]; then
         print_status skip "Program not found: $program_path (for command: $command_name)"
-        ((skipped++))
+        ((++skipped))
         continue
     fi
-    
+
     # Check if it's executable
     if [[ ! -x "$program_path" ]]; then
         print_status error "Program is not executable: $program_path"
-        ((failed++))
+        ((++failed))
         continue
     fi
-    
+
     # Set up the alternative
     if sudo update-alternatives --install /usr/bin/"$command_name" "$command_name" "$program_path" "$priority" 2>/dev/null; then
         print_status success "Alternative set: /usr/bin/$command_name -> $program_path (priority: $priority)"
-        ((processed++))
+        ((++processed))
     else
         print_status error "Failed to set alternative: $command_name"
-        ((failed++))
+        ((++failed))
     fi
-    
 done
 
 # Summary

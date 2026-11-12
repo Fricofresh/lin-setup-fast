@@ -32,14 +32,15 @@ alternatives:
 ### 2. Run the Setup Script
 
 ```bash
-sudo ./setupAlternatives.sh
+./setupAlternatives.sh
 ```
 
 The script will:
 - ✓ Read all entries from `alternatives.yml`
+- ✓ Validate command name, path and priority
 - ✓ Check if each program is installed (executable)
 - ✓ Skip programs that don't exist
-- ✓ Set up alternatives for installed programs
+- ✓ Set up alternatives for installed programs (escalating with `sudo` only for `update-alternatives`)
 - ✓ Display a summary of what was processed
 
 ### 3. Verify the Setup
@@ -103,13 +104,15 @@ alternatives:
 ## Requirements
 
 - `yq`: YAML query tool (required for parsing the configuration file)
-  - The script will automatically offer to install `yq` if it's missing
-  - If `nala` is available, you'll have the option to use it or `apt`
+  - If `yq` is missing, the script installs it with `nala` or `apt`
   - Manual installation: `sudo apt install yq` or `sudo nala install yq`
+  - The distro package may be the Python/jq wrapper or mikefarah's Go `yq`; the
+    query used here works with both, but if parsing fails check `yq --version`
 
 ## Notes
 
-- The script **must be run with sudo** (requires root privileges)
+- The script escalates with `sudo` for `update-alternatives` only; do not run
+  the whole script as root
 - Whitespace is automatically trimmed from configuration values
 - Comments in YAML use `#` prefixes
 - Ensure YAML indentation is correct (use 2 or 4 spaces, not tabs)
