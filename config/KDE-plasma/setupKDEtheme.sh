@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 repo_url="https://github.com/doncsugar/willow-theme.git"
 clone_dir="$HOME/.cache/willow-theme"
 dest_dir="$HOME/.local/share/aurorae/themes/WillowDark"
+color_scheme="BreezeDark"
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../shared_functions.sh"
 
 require_command git
 require_command kwriteconfig6
 require_command plasma-apply-lookandfeel
+require_command plasma-apply-colorscheme
 require_command plasma-apply-cursortheme
+
+kde_config="$(get_kde_config_dir)"
 
 mkdir -p "$(dirname "$dest_dir")"
 rm -rf "$clone_dir"
@@ -33,19 +38,19 @@ fi
 
 rm -rf "$clone_dir"
 
-kwriteconfig6 --file "$HOME/.config/kwinrc" --group org.kde.kdecoration2 --key library "org.kde.kwin.aurorae"
-kwriteconfig6 --file "$HOME/.config/kwinrc" --group org.kde.kdecoration2 --key theme "__aurorae__svg__WillowDark"
+kwriteconfig6 --file "$kde_config/kwinrc" --group org.kde.kdecoration2 --key library "org.kde.kwin.aurorae"
+kwriteconfig6 --file "$kde_config/kwinrc" --group org.kde.kdecoration2 --key theme "__aurorae__svg__WillowDark"
 
 # Theme
-kwriteconfig6 --file "$HOME/.config/kdeglobals" --group General --key name "Breeze Dark"
-kwriteconfig6 --file "$HOME/.config/kdeglobals" --group KDE --key ColorScheme "Breeze"
-kwriteconfig6 --file "$HOME/.config/kdeglobals" --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
-kwriteconfig6 --file "$HOME/.config/kdeglobals" --group KDE --key SingleClick "false"
+kwriteconfig6 --file "$kde_config/kdeglobals" --group General --key name "Breeze Dark"
+kwriteconfig6 --file "$kde_config/kdeglobals" --group KDE --key ColorScheme "$color_scheme"
+kwriteconfig6 --file "$kde_config/kdeglobals" --group KDE --key LookAndFeelPackage "org.kde.breezedark.desktop"
+kwriteconfig6 --file "$kde_config/kdeglobals" --group KDE --key SingleClick "false"
 
 plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
-plasma-apply-colorscheme BreezeDark
+plasma-apply-colorscheme "$color_scheme"
 
 # Mouse
-kwriteconfig6 --file "$HOME/.config/kcminputrc" --group Mouse --key X11LibInputXAccelProfileFlat "true"
-kwriteconfig6 --file "$HOME/.config/kcminputrc" --group Mouse --key cursorTheme "Posy_Cursor"
+kwriteconfig6 --file "$kde_config/kcminputrc" --group Mouse --key X11LibInputXAccelProfileFlat "true"
+kwriteconfig6 --file "$kde_config/kcminputrc" --group Mouse --key cursorTheme "Posy_Cursor"
 plasma-apply-cursortheme Posy_Cursor
