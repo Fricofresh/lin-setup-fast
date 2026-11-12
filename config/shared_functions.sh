@@ -97,7 +97,7 @@ require_command() {
 
 # Function to check if we're on KDE Plasma desktop
 is_kde_plasma() {
-    [[ "$DESKTOP_SESSION" == *"plasma"* ]] || [[ "$XDG_CURRENT_DESKTOP" == *"KDE"* ]]
+    [[ "${DESKTOP_SESSION:-}" == *"plasma"* ]] || [[ "${XDG_CURRENT_DESKTOP:-}" == *"KDE"* ]]
 }
 
 # Function to determine where KDE configuration files are stored
