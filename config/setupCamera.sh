@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Created with AI
 
@@ -13,26 +14,25 @@ echo "Using package manager: $PACKAGE_MANAGER"
 
 if ! command -v v4l2-ctl &> /dev/null; then
     echo "v4l-utils is not installed. Installing v4l-utils..."
-    sudo ${PACKAGE_MANAGER} install v4l-utils
-else 
+    sudo "$PACKAGE_MANAGER" install -y v4l-utils
+else
     echo "v4l-utils is already installed."
 fi
 
-
 # Check if the camera is connected and get its name
-if ls /dev/video* | grep -q video0; then
-    camera_name=$(v4l2-ctl --list-devices | sed '/^$/d' | head -n1)
+if compgen -G '/dev/video*' > /dev/null; then
+    camera_name="$(v4l2-ctl --list-devices 2>/dev/null | sed '/^$/d' | head -n1 || true)"
     echo "Camera is connected: $camera_name"
 else
     echo "Camera is not connected"
 fi
 
-kamoso_path=$(command -v kamoso || true)
+kamoso_path="$(command -v kamoso || true)"
 
 if [[ -z "$kamoso_path" ]]; then
     echo "Kamoso is not installed. Installing Kamoso..."
-    sudo ${PACKAGE_MANAGER} install -y kamoso
-    kamoso_path=$(command -v kamoso || true)
+    sudo "$PACKAGE_MANAGER" install -y kamoso
+    kamoso_path="$(command -v kamoso || true)"
 fi
 
 if [[ -n "$kamoso_path" ]]; then
@@ -43,4 +43,3 @@ else
     echo "Failed to install or locate kamoso. Skipping update-alternatives setup."
     exit 1
 fi
-
