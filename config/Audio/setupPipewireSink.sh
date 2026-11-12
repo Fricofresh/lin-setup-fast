@@ -22,7 +22,7 @@ if [[ ! -d "$CONFIG_DIR" ]]; then
 fi
 
 # Write the configuration file
-cat << 'EOF' | sudo tee "$CONFIG_FILE" > /dev/null
+if ! cat << 'EOF' | sudo tee "$CONFIG_FILE" > /dev/null
 context.objects = [
     {   factory = adapter
         args = {
@@ -51,18 +51,17 @@ context.objects = [
     }
 ]
 EOF
-
-if [[ $? -eq 0 ]]; then
-    print_status success "Configuration written to ${CONFIG_FILE}"
-else
+then
     print_status error "Failed to write configuration file"
     exit 1
 fi
 
+print_status success "Configuration written to ${CONFIG_FILE}"
+
 # Restart PipeWire services to apply changes (user services, no sudo needed)
 print_status info "Restarting PipeWire services..."
-systemctl --user restart pipewire pipewire-pulsewire 2>/dev/null || \
-systemctl --user restart pipewire pipewire-pulse 2>/dev/null || \
-print_status error "Could not restart PipeWire automatically. Please restart manually or reboot."
+if ! systemctl --user restart pipewire pipewire-pulse wireplumber; then
+    print_status warning "Could not restart PipeWire automatically. Please restart manually or reboot."
+fi
 
 print_status success "PipeWire setup complete!"
