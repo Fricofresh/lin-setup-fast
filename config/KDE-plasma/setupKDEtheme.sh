@@ -27,11 +27,7 @@ else
 fi
 
 if [[ -d "$clone_dir/plasma-style/WillowDark" ]]; then
-    if [[ -e "$dest_dir" ]]; then
-        backup_dir="${dest_dir}.bak.$(date +%Y%m%d-%H%M%S)"
-        mv "$dest_dir" "$backup_dir"
-        echo "Moved existing theme to $backup_dir"
-    fi
+    rm -rf "$dest_dir"
     mv "$clone_dir/plasma-style/WillowDark" "$dest_dir"
     echo "Installed WillowDark aurorae theme to $dest_dir"
 else
