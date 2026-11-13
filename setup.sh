@@ -8,7 +8,7 @@ config_dir="$script_dir/config"
 # Shared libraries are sourced by the task scripts and must not be executed.
 helper_scripts=("shared_functions.sh")
 # Tasks that need their own arguments and are therefore not part of `all`.
-argument_tasks=("setupPrograms.sh")
+argument_tasks=("setupPrograms.sh" "setupModularConfig.sh")
 
 failed_tasks=()
 running_all=0
@@ -29,7 +29,7 @@ run_script() {
     fi
 
     if [[ $running_all -eq 1 && " ${argument_tasks[*]} " == *" $base "* ]]; then
-        echo "Skipping $base (needs arguments, run '$0 programs <url-or-path>')"
+        echo "Skipping $base (needs arguments; run it directly)"
         return 0
     fi
 
