@@ -40,8 +40,8 @@ Examples:
 ```
 
 `all` runs every task even if one of them fails and prints a summary of the
-failures at the end. Tasks that require arguments (`programs`) are skipped in
-that mode.
+failures at the end. Tasks that require arguments (for example `programs` and
+`setupModularConfig.sh`) are skipped in that mode.
 
 ## Layout
 
@@ -54,13 +54,26 @@ config/
   setup*.sh                  individual setup tasks
   Audio/                     PipeWire tasks
   KDE-plasma/                KDE Plasma tasks
+  Thunderbird/               Thunderbird user.js
   VisualStudioCode/          VS Code keybindings (not installed automatically)
 picture/                     images installed into the user's icon directory
-installation/                placeholder
+tools/                       standalone helpers that are not setup tasks
+  pw-chrome-monitor-links.sh PipeWire links for the virtual microphone
 ```
 
 `config/shared_functions.sh` is a library and is sourced, never executed as a
 task.
+
+Three scripts can be run directly instead of through the task runner:
+
+```bash
+./config/setupKeybindings.sh                 # apply the KDE shortcuts only
+./config/setupModularConfig.sh <module...>   # run selected setup modules
+./tools/pw-chrome-monitor-links.sh           # after the PipeWire sink exists
+```
+
+The last one is not part of `./setup.sh audio`; run it after
+`setupPipewireSink.sh` has created the sink, for example from autostart.
 
 ## TODO
 
@@ -76,7 +89,7 @@ task.
   - [x] All German representation only language is English
 - [ ] Install Discover plugins and Themes - Maybe with https://git.symlinx.net/pkgit
   - [ ] [Posy's Cursor](https://github.com/simtrami/posy-improved-cursor-linux)
-  - [ ] [Willow Dark](https://github.com/doncsugar/willow-theme/tree/main/aurorae-themes/WillowDark)
+  - [x] [Willow Dark](https://github.com/doncsugar/willow-theme/tree/main/aurorae-themes/WillowDark)
 - [x] SDDM change time-date locale
 - [x] change Plasma to dark mode
 - [x] Setup camera
