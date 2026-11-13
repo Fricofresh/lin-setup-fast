@@ -52,5 +52,11 @@ plasma-apply-colorscheme "$color_scheme"
 
 # Mouse
 kwriteconfig6 --file "$kde_config/kcminputrc" --group Mouse --key X11LibInputXAccelProfileFlat "true"
-kwriteconfig6 --file "$kde_config/kcminputrc" --group Mouse --key cursorTheme "Posy_Cursor"
-plasma-apply-cursortheme Posy_Cursor
+
+if plasma-apply-cursortheme --list-themes 2>/dev/null | grep -qF "[Posy_Cursor]"; then
+    kwriteconfig6 --file "$kde_config/kcminputrc" --group Mouse --key cursorTheme "Posy_Cursor"
+    plasma-apply-cursortheme Posy_Cursor
+else
+    print_status warning "Posy_Cursor is not installed; keeping the current cursor theme."
+    print_status info "Install it from https://github.com/simtrami/posy-improved-cursor-linux"
+fi
