@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Setup KDE keybindings using kwriteconfig6 commands
 

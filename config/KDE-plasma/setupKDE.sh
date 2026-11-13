@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Terminal
 kwriteconfig6 --file ~/.config/kdeglobals --group General --key TerminalService "terminator.desktop"
