@@ -60,7 +60,8 @@ install_packages() {
     local packages=("$@")
 
     if [[ ${#packages[@]} -eq 0 ]]; then
-        packages=(thunderbird rclone nextcloud-desktop plasma-discover)
+        echo "Error: no packages specified." >&2
+        return 1
     fi
 
     case "$pm" in
@@ -82,7 +83,8 @@ install_packages() {
             sudo zypper install -y "${packages[@]}"
             ;;
         *)
-            echo "No supported package manager detected. Install: ${packages[*]}"
+            echo "No supported package manager detected. Install: ${packages[*]}" >&2
+            return 1
             ;;
     esac
 }
