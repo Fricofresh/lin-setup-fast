@@ -10,5 +10,3 @@ kwriteconfig6 --file ~/.config/plasma-localerc --group Formats --key LC_NUMERIC 
 kwriteconfig6 --file ~/.config/plasma-localerc --group Formats --key LC_PAPER "de_DE.UTF-8"
 kwriteconfig6 --file ~/.config/plasma-localerc --group Formats --key LC_TELEPHONE "de_DE.UTF-8"
 kwriteconfig6 --file ~/.config/plasma-localerc --group Formats --key LC_TIME "de_DE.UTF-8"
-
-kwriteconfig6 --file ~/.config/plasma-localerc --group Translations --key browsertabsEnabled "false"
