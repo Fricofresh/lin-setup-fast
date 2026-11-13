@@ -10,23 +10,10 @@ fi
 
 echo "Using package manager: $PACKAGE_MANAGER"
 
-missing_packages=()
+PYTHON_PACKAGES=(python3 python3-pip python3-venv python3-dev)
 if ! command -v python3 &> /dev/null; then
-    missing_packages+=(python3)
-fi
-if ! command -v pip3 &> /dev/null; then
-    missing_packages+=(python3-pip)
-fi
-if ! python3 -m venv --help &> /dev/null; then
-    missing_packages+=(python3-venv)
-fi
-if ! command -v python3-config &> /dev/null; then
-    missing_packages+=(python3-dev)
-fi
-
-if [[ ${#missing_packages[@]} -gt 0 ]]; then
-    echo "Installing Python packages: ${missing_packages[*]}"
-    sudo "$PACKAGE_MANAGER" install -y "${missing_packages[@]}"
+    echo "Installing Python packages: ${PYTHON_PACKAGES[*]}"
+    sudo "$PACKAGE_MANAGER" install "${PYTHON_PACKAGES[@]}"
 else
     echo "Python packages are already installed."
 fi
